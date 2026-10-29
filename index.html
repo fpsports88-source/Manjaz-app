@@ -311,7 +311,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
 /* Ultra chat responsiveness + Teams-like profile presence */
 .presence-avatar{position:relative;display:inline-flex}.presence-avatar .presence-dot{position:absolute;inset-inline-end:0;bottom:0;width:15px;height:15px;border:3px solid var(--surface,#fff);border-radius:50%;z-index:3;box-shadow:0 1px 3px #0003}.pf-av{position:relative}.presence-dot.online{background:#22c55e}.presence-dot.busy{background:#ef4444}.presence-dot.offline{background:#111827}.presence-dot.hidden{background:rgba(30,41,59,.48);border-color:rgba(255,255,255,.75)}.chat-send-btn{flex:0 0 auto;min-width:84px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;touch-action:manipulation}.chat-send-btn span[aria-hidden]{font-size:1.05rem}.pc-wrap #pcSend{display:flex;align-items:stretch;gap:8px;position:sticky;bottom:0;background:var(--surface);padding-top:8px}.pc-wrap #pcIn{min-width:0;width:100%}.pc-msgs{overscroll-behavior:contain;scrollbar-gutter:stable}.pc-m{min-width:0}.pc-b{overflow-wrap:anywhere;word-break:break-word}.pc-t{display:block}.pf-edit select{width:100%;min-height:44px;border:1px solid var(--border);border-radius:12px;padding:8px 12px;background:var(--surface);color:var(--text);font:inherit;margin-top:5px}@media(max-width:480px){.chat-send-btn{min-width:48px;padding-inline:12px}.chat-send-label{font-size:.86rem}.pc-wrap .row.between{align-items:flex-start;flex-wrap:wrap}.pc-wrap .row.between .muted{max-width:100%;font-size:.75rem}.pc-msgs{height:min(56dvh,480px);padding:2px}.pc-wrap #pcSend{gap:6px}.pc-wrap #pcIn{font-size:16px!important}}@media(hover:none){.chat-send-btn{min-height:46px}}
 </style>
-</head>
+<style id="deskFix">html,body{max-width:100vw;overflow-x:hidden}.modal{max-width:min(720px,94vw)}@media (min-width:900px){html{zoom:1}}</style></head>
 <body>
   <div id="app" class="app-root"></div>
   <div id="toastRoot" class="toast-root" aria-live="polite"></div>
@@ -333,7 +333,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
         appId: '1:3482020492:web:72d6f419712c0404a8e9a9'
       };
 
-      const APP = { name:'منجز', version:'8.0.1-ultra-chat', copyright:'© YS — جميع الحقوق محفوظة' };
+      const APP = { name:'منجز', version:'8.1.0', copyright:'© YS — جميع الحقوق محفوظة' };
       const LS = { profiles:'munjiz.profiles', active:'munjiz.active', prefs:'munjiz.prefs', temp:'munjiz.temp' };
       const DAY = 86400000;
       const STATUS = ['new','inProgress','done'];
@@ -633,7 +633,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
         if(watchUid===uid) return; stopWatch(); watchUid=uid;
         watchUnsub=fb.db.collection('users').doc(uid).collection('data').doc('main').onSnapshot(snap=>{
           if(!snap.exists || snap.metadata.hasPendingWrites || cloudReady!==uid || state.auth.uid!==uid) return;
-          const data=snap.data(); if((data.updatedAt||0)<=state.updatedAt+500) return;
+          const data=snap.data(); const cx=((data.state&&data.state.game)||{}).xp||0; if((data.updatedAt||0)<=state.updatedAt+500 && cx<=state.game.xp) return;
           const dev=state.developer.unlocked, auth=state.auth; state=normalizeState(data.state||{}); state.developer.unlocked=dev; state.auth=auth; window.__state=state;
           if(activeProfile) saveProfile(activeProfile.id,state); applySettings(); render(); toast(t('syncedFromOther'),'success');
         },()=>{});
@@ -663,7 +663,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
             if(isPristine(state) || (data.updatedAt||0)>state.updatedAt){
               const dev=state.developer.unlocked, auth=state.auth; state=cloud; state.developer.unlocked=dev; state.auth=auth;
               window.__state=state; if(activeProfile) saveProfile(activeProfile.id,state); applySettings(); cloudReady=uid;
-            } else { cloudReady=uid; await pushCloud(); }
+            } else { const cg=cloud.game||{}; if((cg.xp||0)>state.game.xp){ state.game.xp=cg.xp; state.game.level=Math.max(state.game.level||1,cg.level||1); } cloudReady=uid; await pushCloud(); }
           } else { cloudReady=uid; await pushCloud(); }
           startWatch(uid);
         }catch(e){ console.warn(e); }
@@ -703,7 +703,7 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
           try{
             const snap=await fb.db.collection('developers').doc(fb.auth.currentUser.uid).get();
             state.developer.unlocked=!!(snap.exists && snap.data().role==='developer'); saveState(false); render();
-            if(state.developer.unlocked){ DevGod(); Gamification.checkBadges(); toast(t('developerReady'),'success'); this.loadInquiries(); }
+            if(state.developer.unlocked){ DevGod(); Gamification.checkBadges(); toast(t('developerReady'),'success'); this.loadInquiries(); if(!sessionStorage.getItem('munjiz.devOpened')){ sessionStorage.setItem('munjiz.devOpened','1'); state.ui.view='developer'; saveState(false); render(); } }
             return state.developer.unlocked;
           }catch{ state.developer.unlocked=false; return false; }
         },
@@ -1367,6 +1367,34 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
       document.addEventListener('click', e => { const b = e.target.closest('[data-ob]'); if(!b) return; const box = document.getElementById('obBox'); if(!box) return;
         if(Onboard.i < Onboard.S().length - 1){ Onboard.i++; Onboard.draw(box); } else { state.onboarded = true; saveState(); const c = Onboard.modal && Onboard.modal.querySelector('[data-close]'); if(c) c.click(); } });
 
+
+      /* ===== عرض الفريق للجميع + تقييم التطبيق (© YS) ===== */
+      document.addEventListener('click', async e => {
+        const row = e.target.closest('[data-tv]'); if(!row || e.target.closest('button,a,input')) return;
+        if(!Social.ok()){ toast(t('requiresFirebase'),'warn'); return; }
+        const tid = row.dataset.tv, m = openModal({ title: '👥', size: 'lg', body: '<div id="tvBox" class="muted">…</div>' }), box = m.el.querySelector('#tvBox');
+        try{
+          const [info, st] = await Promise.all([fb.db.collection('teamBoard').doc('all').collection('teams').doc(tid).get(), fb.db.collection('teamMembers').doc(tid).collection('stats').orderBy('pts','desc').limit(30).get()]);
+          const profs = await Promise.all(st.docs.map(d => fb.db.collection('publicProfiles').doc(d.id).get())), ti = info.exists ? info.data() : {};
+          const h = m.el.querySelector('h3'); if(h) h.textContent = '👥 ' + (ti.name || '');
+          box.className = ''; box.innerHTML = `<div class="row between" style="margin-bottom:10px"><b>${esc(ti.name || '')}</b><span class="muted small">👥 ${ti.members || st.size} · ⭐ ${ti.pts || 0}</span></div><div class="list">` + (st.docs.map((d, i) => {
+            const p = profs[i].exists ? profs[i].data() : {}, s = d.data(), nm = p.displayName || s.name || 'User';
+            return `<div class="list-item"><span class="avatar" style="width:38px;height:38px;background:${esc(p.avatarColor || 'var(--accent)')}">${esc(nm.slice(0, 1).toUpperCase())}</span><div class="list-main"><div class="list-title">${esc(nm)} ${Social.badgeFor({ id: d.id, xp: p.xp, level: p.level })}</div><div class="meta"><span>L${p.level || 1} · ${p.xp || 0} XP</span><span>🏅 ${p.badgesCount || 0}</span><span>✅ ${p.tasksCompleted || 0}</span><span>🔥 ${p.streak || 0}</span></div></div><b>${s.pts || 0}</b></div>`; }).join('') || emptyHtml(t('noData'))) + '</div>';
+        }catch{ box.textContent = t('requiresFirebase'); }
+      });
+      var Rate = {
+        t0: Date.now(),
+        maybe(){
+          if(!Social.ok() || localStorage.getItem('munjiz.rated') || Date.now() - this.t0 < 90000 || Date.now() < +(localStorage.getItem('munjiz.rateSkip') || 0) || document.querySelector('.modal-backdrop')) return;
+          localStorage.setItem('munjiz.rateSkip', String(Date.now() + 3 * 864e5));
+          const m = openModal({ title: '⭐ ' + L2('قيّم تجربتك', 'Rate your experience'), body: `<p class="muted">${esc(L2('رأيك يهمنا ويساعدنا نطوّر التطبيق. من 1 إلى 10:', 'Your feedback helps us improve. From 1 to 10:'))}</p><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">${[1,2,3,4,5,6,7,8,9,10].map(n => `<button type="button" class="btn ${n === 10 ? 'primary' : ''}" data-rate="${n}">${n}</button>`).join('')}</div>` });
+          m.el.addEventListener('click', async e => { const b = e.target.closest('[data-rate]'); if(!b) return;
+            try{ await fb.db.collection('ratings').doc(Social.me()).set({ score: +b.dataset.rate, name: Social.name().slice(0, 40), at: iso() }); localStorage.setItem('munjiz.rated', '1'); toast(L2('شكرًا لتقييمك! 💙', 'Thanks for rating! 💙'), 'success'); }catch{ toast(t('requiresFirebase'),'error'); }
+            const c = m.el.querySelector('[data-close]'); if(c) c.click(); });
+        },
+      };
+      setInterval(() => Rate.maybe(), 15000);
+
       /* ===== الأصدقاء والشات (© YS) ===== */
       const Social = {
         list: [], unsub: null, forUid: null,
@@ -1500,8 +1528,8 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
             const sn = await fb.db.collection('publicProfiles').orderBy('xp','desc').limit(300).get(), rows = sn.docs.map(d => ({ id: d.id, ...d.data() })), now = Date.now(), day = 864e5;
             const age = r => now - (Date.parse(r.updatedAt || '') || 0), sum = k => rows.reduce((n, r) => n + (+r[k] || 0), 0), tiers = {};
             rows.forEach(r => { const x = Social.tierOf(r.xp, r.level), k = x ? x.icon + ' ' + x.name : '—'; tiers[k] = (tiers[k] || 0) + 1; });
-            const ln = (l, v) => `<div class="row between" style="margin:3px 0"><span>${esc(l)}</span><b>${esc(v)}</b></div>`;
-            g('devStats').innerHTML = ln(t('stUsers'), rows.length) + ln(t('stA24'), rows.filter(r => age(r) < day).length) + ln(t('stA7'), rows.filter(r => age(r) < 7 * day).length) + ln(t('stXp'), sum('xp')) + ln(t('stTasks'), sum('tasksCompleted'))
+            const rtv = (await fb.db.collection('ratings').limit(500).get()).docs.map(d => +d.data().score || 0).filter(Boolean); const ln = (l, v) => `<div class="row between" style="margin:3px 0"><span>${esc(l)}</span><b>${esc(v)}</b></div>`;
+            g('devStats').innerHTML = ln(t('stUsers'), rows.length) + ln(t('stA24'), rows.filter(r => age(r) < day).length) + ln(t('stA7'), rows.filter(r => age(r) < 7 * day).length) + ln(t('stXp'), sum('xp')) + ln(t('stTasks'), sum('tasksCompleted')) + ln('⭐ ' + L2('متوسط التقييم', 'Avg rating'), rtv.length ? (rtv.reduce((a, b) => a + b, 0) / rtv.length).toFixed(1) + '/10 (' + rtv.length + ')' : '—')
               + `<div style="margin-top:8px"><b>${esc(t('stTiers'))}</b></div>` + Object.entries(tiers).map(([k, v]) => ln(k, v)).join('')
               + `<div style="margin-top:8px"><b>${esc(t('stTop'))}</b></div>` + rows.slice(0, 5).map((r, i) => ln((i + 1) + '. ' + (r.displayName || '—'), 'L' + (r.level || 1) + ' · ' + (r.xp || 0) + ' XP')).join('');
           }
@@ -2021,7 +2049,7 @@ service cloud.firestore {
       else{ const per=this.sub==='d'?'d-'+day():this.sub==='w'?'w-'+wk():'all'; const s=await col('teamBoard',per,'teams').orderBy('pts','desc').limit(50).get(); let r=s.docs.map(d=>({id:d.id,...d.data()})); r.forEach(x=>{ const st=(Social.staff||{})[x.ownerId]; x.pin=!!(x.featured||(st&&st.role==='developer')); }); this.rows=[...r.filter(x=>x.pin),...r.filter(x=>!x.pin)]; } }
     catch(e){ this.err=(e&&e.code)||'error'; this.rows=[]; } this.busy=false; render(); };
   const PR={d:[500,300,150],td:[400,250,120],tw:[1500,900,500]}, medal=i=>['🥇','🥈','🥉'][i]||(i+1);
-  const teamRows=()=>LB.rows.map((r,i)=>`<div class="list-item ${r.pin?'u5-pin':''}"><div class="lb-rank" style="min-width:30px">${medal(i)}</div><span class="avatar" style="width:38px;height:38px;background:${esc(r.color||'var(--accent)')}">${esc((r.name||'ف').slice(0,1))}</span><div class="list-main"><div class="list-title">${esc(r.name||'—')} ${r.pin?'👑':''}</div><div class="meta"><span>👥 ${r.members||1}</span><span>⭐ ${r.pin?'∞':(r.pts||0).toLocaleString()} ${L('نقطة','pts')}</span>${r.pin?`<span>${L('فريق المؤسس','Founder team')}</span>`:''}</div></div></div>`).join('');
+  const teamRows=()=>LB.rows.map((r,i)=>`<div class="list-item ${r.pin?'u5-pin':''}" data-tv="${esc(r.id)}" style="cursor:pointer"><div class="lb-rank" style="min-width:30px">${medal(i)}</div><span class="avatar" style="width:38px;height:38px;background:${esc(r.color||'var(--accent)')}">${esc((r.name||'ف').slice(0,1))}</span><div class="list-main"><div class="list-title">${esc(r.name||'—')} ${r.pin?'👑':''}</div><div class="meta"><span>👥 ${r.members||1}</span><span>⭐ ${r.pin?'∞':(r.pts||0).toLocaleString()} ${L('نقطة','pts')}</span>${r.pin?`<span>${L('فريق المؤسس','Founder team')}</span>`:''}</div></div></div>`).join('');
   const _rl=renderLeaderboard;
   renderLeaderboard=function(){ const o=_rl(), k=o.indexOf('<div class="grid cols-2"'), rest=k>0?o.slice(k):'', key=LB.tab+LB.sub;
     if(LB.key!==key){ LB.key=key; setTimeout(()=>LB.load(),0); }
