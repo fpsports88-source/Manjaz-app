@@ -307,63 +307,10 @@ input:focus,select:focus,textarea:focus{outline:0;border-color:var(--accent);box
 .pc-b{background:var(--surface2);border-radius:18px;padding:8px 14px;max-width:min(86%,520px);word-break:break-word;line-height:1.6}.pc-m.me .pc-b{background:var(--grad);color:#fff}
 .pc-n{font-weight:900;font-size:.8rem;cursor:pointer;display:flex;gap:6px;align-items:center}.pc-t{display:block;opacity:.55;font-size:.68rem;margin-top:2px}.pc-act{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
 .pc-ban{padding:14px;border-radius:16px;background:rgba(220,38,38,.12);border:1px solid rgba(220,38,38,.4);color:var(--danger);font-weight:800}
-</style>
-<style id="profileResponsiveFix">
-/* Profile card: keep the avatar above the cover decoration on every screen */
-.pf-card{position:relative;isolation:isolate;min-width:0}
-.pf-banner{position:relative;z-index:0;min-height:clamp(112px,22vw,180px);height:clamp(112px,22vw,180px);overflow:hidden}
-.pf-banner::after{pointer-events:none;z-index:0}
-.pf-body{position:relative;z-index:1;min-width:0;padding-inline:clamp(12px,3.5vw,24px)}
-.pf-av{position:relative;z-index:2;margin-top:clamp(-54px,-8vw,-42px);isolation:isolate}
-.pf-av .avatar{position:relative;z-index:2;display:block;flex:0 0 auto;width:clamp(78px,19vw,104px);height:clamp(78px,19vw,104px);max-width:100%;aspect-ratio:1;object-fit:cover;object-position:center;border-radius:50%;background:var(--accent);overflow:hidden}
-.pf-av img.avatar{padding:0;line-height:0}
-.pf-name,.pf-handle,.pf-bio{overflow-wrap:anywhere;word-break:normal}
-.pf-tags{min-width:0;gap:6px}
-.pf-id{max-width:100%;overflow-wrap:anywhere;letter-spacing:.035em}
-.pf-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(6px,1.8vw,10px)}
-.pf-stats div{min-width:0;padding:clamp(8px,2.2vw,12px) 4px;overflow-wrap:anywhere}
-.pf-stats b{overflow-wrap:anywhere;font-size:clamp(.95rem,3.8vw,1.1rem)}
-.pf-stats span{display:block;overflow-wrap:anywhere;font-size:clamp(.64rem,2.7vw,.72rem)}
-.pf-grid,#pfPreview,.pf-edit{min-width:0;max-width:100%}
-.pf-edit input:not([type="file"]),.pf-edit textarea{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
-.pf-edit .row{flex-wrap:wrap;min-width:0}
-.pf-sws{gap:9px}
-@media(max-width:380px){.pf-card{border-radius:20px}.pf-body{padding-inline:10px;padding-bottom:16px}.pf-stats{gap:5px}.pf-tags{gap:5px}.pf-edit{padding:12px}.pf-sw{width:32px;height:32px;min-height:32px}}
-@media(min-width:900px){.pf-grid{grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}.pf-banner{height:160px}}
-</style>
 
-<style id="munjizDeviceProfileFix">
-/* Responsive layout: avoid horizontal overflow and keep controls comfortable on phones/tablets */
-*,*::before,*::after{box-sizing:border-box}
-html{width:100%;max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body,#app,.app-root,.shell,.main,.view{min-width:0;max-width:100%;width:100%}
-body{overflow-x:hidden}
-img,video,canvas,svg{max-width:100%}
-button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulation}
-.card,.pf-card,.pf-edit,.pf-grid,#pfPreview{min-width:0;max-width:100%}
-.pf-grid{grid-template-columns:minmax(0,1fr)}
-/* Put the avatar in normal flow above the profile details instead of letting the cover mask it */
-.pf-banner{height:clamp(112px,24vw,180px);min-height:clamp(112px,24vw,180px);overflow:hidden;isolation:isolate}
-.pf-banner::after{pointer-events:none;z-index:0}
-.pf-body{position:relative;z-index:2;padding:0 clamp(10px,3vw,24px) 22px;isolation:isolate}
-.pf-av{position:relative;z-index:5;margin-top:0;transform:translateY(-50%);margin-bottom:clamp(-48px,-9vw,-38px);display:flex;justify-content:center;isolation:isolate;pointer-events:none}
-.pf-av .avatar{position:relative;z-index:6;display:block;flex:0 0 auto;width:clamp(78px,19vw,104px);height:clamp(78px,19vw,104px);aspect-ratio:1;object-fit:cover;object-position:center;border-radius:50%;background:var(--accent);border:4px solid var(--surface);overflow:hidden;pointer-events:auto}
-.pf-av img.avatar{padding:0;line-height:0}
-.pf-name,.pf-handle,.pf-bio,.pf-id{overflow-wrap:anywhere;word-break:normal}
-.pf-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(5px,1.8vw,10px)}
-.pf-stats>div{min-width:0;padding:clamp(8px,2vw,12px) 4px}
-.pf-stats b{font-size:clamp(.9rem,3.8vw,1.1rem);overflow-wrap:anywhere}
-.pf-stats span{display:block;font-size:clamp(.62rem,2.7vw,.72rem);overflow-wrap:anywhere}
-.pf-tags{min-width:0;gap:6px}
-.pf-edit input:not([type=file]),.pf-edit textarea{width:100%;min-width:0;max-width:100%;box-sizing:border-box}
-.pf-edit .row{flex-wrap:wrap;min-width:0}
-.pf-sws{gap:9px;flex-wrap:wrap}
-@media(min-width:900px){.pf-grid{grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}.pf-banner{height:160px;min-height:160px}}
-@media(max-width:520px){.pf-card{border-radius:22px}.pf-body{padding-inline:10px;padding-bottom:16px}.pf-stats{gap:5px}.pf-tags{gap:5px}.pf-id{font-size:.7rem}.pf-edit{padding:14px}.pf-sw{width:32px;height:32px;min-height:32px}.topbar{gap:6px;flex-wrap:wrap}.top-title{min-width:0}.top-title h1{font-size:clamp(1rem,5vw,1.45rem)}}
-@media(max-width:360px){.pf-stats span{font-size:.6rem}.pf-stats b{font-size:.86rem}.pf-id{letter-spacing:0}.pf-body{padding-inline:8px}}
-@media(prefers-reduced-motion:reduce){.pf-card,.pf-av .avatar{animation:none!important;transition:none!important}}
+/* Ultra chat responsiveness + Teams-like profile presence */
+.presence-avatar{position:relative;display:inline-flex}.presence-avatar .presence-dot{position:absolute;inset-inline-end:0;bottom:0;width:15px;height:15px;border:3px solid var(--surface,#fff);border-radius:50%;z-index:3;box-shadow:0 1px 3px #0003}.pf-av{position:relative}.presence-dot.online{background:#22c55e}.presence-dot.busy{background:#ef4444}.presence-dot.offline{background:#111827}.presence-dot.hidden{background:rgba(30,41,59,.48);border-color:rgba(255,255,255,.75)}.chat-send-btn{flex:0 0 auto;min-width:84px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;touch-action:manipulation}.chat-send-btn span[aria-hidden]{font-size:1.05rem}.pc-wrap #pcSend{display:flex;align-items:stretch;gap:8px;position:sticky;bottom:0;background:var(--surface);padding-top:8px}.pc-wrap #pcIn{min-width:0;width:100%}.pc-msgs{overscroll-behavior:contain;scrollbar-gutter:stable}.pc-m{min-width:0}.pc-b{overflow-wrap:anywhere;word-break:break-word}.pc-t{display:block}.pf-edit select{width:100%;min-height:44px;border:1px solid var(--border);border-radius:12px;padding:8px 12px;background:var(--surface);color:var(--text);font:inherit;margin-top:5px}@media(max-width:480px){.chat-send-btn{min-width:48px;padding-inline:12px}.chat-send-label{font-size:.86rem}.pc-wrap .row.between{align-items:flex-start;flex-wrap:wrap}.pc-wrap .row.between .muted{max-width:100%;font-size:.75rem}.pc-msgs{height:min(56dvh,480px);padding:2px}.pc-wrap #pcSend{gap:6px}.pc-wrap #pcIn{font-size:16px!important}}@media(hover:none){.chat-send-btn{min-height:46px}}
 </style>
-
 </head>
 <body>
   <div id="app" class="app-root"></div>
@@ -386,7 +333,7 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
         appId: '1:3482020492:web:72d6f419712c0404a8e9a9'
       };
 
-      const APP = { name:'منجز', version:'8.0.0-ultra-plus', copyright:'© YS — جميع الحقوق محفوظة' };
+      const APP = { name:'منجز', version:'8.0.1-ultra-chat', copyright:'© YS — جميع الحقوق محفوظة' };
       const LS = { profiles:'munjiz.profiles', active:'munjiz.active', prefs:'munjiz.prefs', temp:'munjiz.temp' };
       const DAY = 86400000;
       const STATUS = ['new','inProgress','done'];
@@ -530,7 +477,7 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
       const DEFAULT_STATE = {
         schemaVersion:3, updatedAt:Date.now(),
         auth:{provider:'guest',uid:'guest',displayName:'',email:'',photoURL:''},
-        profile:{name:'',school:'',avatarColor:'#2563eb',photo:''},
+        profile:{name:'',school:'',avatarColor:'#2563eb',photo:'',presence:'online',hidePresence:false},
         settings:{lang:'ar',themeMode:'auto',themePreset:'ocean',accent:'#2563eb',pomodoro:{work:25,short:5,long:15,cycle:4},notifyLead:60,sound:true,vibration:true},
         subjects:[], tasks:[], groups:[], teams:[], activeTeamId:null, sessions:[],
         game:{xp:0,level:1,streak:0,bestStreak:0,studyDates:[],badges:{},frames:{unlocked:['none'],equipped:'none'},titles:{unlocked:['student'],equipped:'student'},raceWins:0,challengeWins:0,firstCompletionDate:'',firstCompletionAt:null},
@@ -726,7 +673,7 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
         clearTimeout(publishTimer); publishTimer=setTimeout(async()=>{
           try{
             await fb.db.collection('publicProfiles').doc(state.auth.uid).set({
-              displayName:state.profile.name||state.auth.displayName||'Student', avatarColor:state.profile.avatarColor||'#2563eb', photo:state.profile.photo||state.auth.photoURL||'',
+              displayName:state.profile.name||state.auth.displayName||'Student', presence:state.profile.hidePresence?'hidden':(state.profile.presence||'online'), avatarColor:state.profile.avatarColor||'#2563eb', photo:state.profile.photo||state.auth.photoURL||'',
               title:titleName(state.game.titles.equipped), frame:state.game.frames.equipped||'none', xp:state.game.xp, level:state.game.level, streak:state.game.streak, bestStreak:state.game.bestStreak,
               tasksCompleted:state.tasks.filter(x=>x.status==='done').length, focusMinutes:Math.round(completedSessions().reduce((s,x)=>s+x.actualSec/60,0)),
               raceWins:state.game.raceWins, challengeWins:state.game.challengeWins, firstCompletionDate:state.game.firstCompletionDate||'', firstCompletionAt:state.game.firstCompletionAt||null,
@@ -987,19 +934,20 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
       const PF_COLORS=['#2563eb','#7c3aed','#db2777','#dc2626','#ea580c','#059669','#0891b2','#475569'];
       const pid=id=>'MZ-'+String(id||'LOCAL').replace(/[^A-Za-z0-9]/g,'').slice(0,8).toUpperCase();
       const myId=()=>state.auth.uid&&state.auth.uid!=='guest'?state.auth.uid:(activeProfile?.id||'local');
-      function myRow(){ const p=state.profile; return {id:myId(),displayName:p.name||state.auth.displayName||'',avatarColor:p.avatarColor,photo:p.photo||state.auth.photoURL||'',title:titleName(state.game.titles.equipped),frame:state.game.frames.equipped,xp:state.game.xp,level:state.game.level,streak:state.game.streak,tasksCompleted:state.tasks.filter(x=>x.status==='done').length,focusMinutes:Math.round(completedSessions().reduce((s,x)=>s+x.actualSec/60,0)),raceWins:state.game.raceWins,bio:p.bio||'',banner:p.banner|0,handle:p.handle||'',badges:Object.keys(state.game.badges||{})}; }
+      function myRow(){ const p=state.profile; return {id:myId(),displayName:p.name||state.auth.displayName||'',avatarColor:p.avatarColor,photo:p.photo||state.auth.photoURL||'',title:titleName(state.game.titles.equipped),frame:state.game.frames.equipped,xp:state.game.xp,level:state.game.level,streak:state.game.streak,tasksCompleted:state.tasks.filter(x=>x.status==='done').length,focusMinutes:Math.round(completedSessions().reduce((s,x)=>s+x.actualSec/60,0)),raceWins:state.game.raceWins,bio:p.bio||'',banner:p.banner|0,handle:p.handle||'',presence:p.hidePresence?'hidden':(p.presence||'online'),badges:Object.keys(state.game.badges||{})}; }
       function pfCard(r){
         const rl=(Social.staff||{})[r.id]||null, gold=!!(rl&&rl.role==='developer'), isMod=!!(rl&&rl.role==='moderator');
         const [c1,c2]=BANNERS[(r.banner|0)%BANNERS.length]||BANNERS[0];
         const av=r.photo?`<img class="avatar frame-${esc(r.frame||'none')}" src="${esc(r.photo)}" alt="">`:`<span class="avatar frame-${esc(r.frame||'none')}" style="background:${esc(r.avatarColor||'var(--accent)')}">${esc((r.displayName||'م').slice(0,1).toUpperCase())}</span>`;
         const st=[[r.level||1,t('level')],[r.xp||0,'XP'],[r.streak||0,t('streak')],[r.tasksCompleted||0,t('tasks')],[fmtDuration(r.focusMinutes||0),t('focus')],[r.raceWins||0,'🏁']];
-        return `<div class="pf-card${gold?' pf-gold':''}"><div class="pf-banner" style="${gold?'':`background:linear-gradient(135deg,${c1},${c2})`}"></div><div class="pf-body"><div class="pf-av">${av}</div><h2 class="pf-name">${esc(r.displayName||'—')}</h2>${r.handle?`<div class="pf-handle">@${esc(r.handle)}</div>`:''}<div class="pf-tags"><button type="button" class="pf-id" data-pf="copy" data-id="${esc(pid(r.id))}">${esc(pid(r.id))} ⧉</button>${Social.badgeFor(r)}${gold?'<span class="chip role-dev">👑 YS • المؤسس</span>':isMod?'<span class="chip role-mod">🛡️ مشرف</span>':''}<span class="chip">${esc(r.title||t('student'))}</span></div>${r.bio?`<p class="pf-bio">${esc(r.bio)}</p>`:''}${medals(r,gold)}<div class="pf-stats">${st.map(([v,l])=>`<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div></div></div>`;
+        const presence=(r.presence||'offline'); const presenceClass=presence==='online'?'online':(presence==='busy'||presence==='focus'?'busy':presence==='hidden'?'hidden':'offline'); const presenceLabel=({online:'متصل',busy:'مشغول',focus:'وضع التركيز',hidden:'الحالة مخفية',offline:'غير متصل'})[presence]||'غير متصل';
+        return `<div class="pf-card${gold?' pf-gold':''}"><div class="pf-banner" style="${gold?'':`background:linear-gradient(135deg,${c1},${c2})`}"></div><div class="pf-body"><div class="pf-av">${av}<span class="presence-dot ${presenceClass}" title="${esc(presenceLabel)}" aria-label="${esc(presenceLabel)}"></span></div><h2 class="pf-name">${esc(r.displayName||'—')}</h2>${r.handle?`<div class="pf-handle">@${esc(r.handle)}</div>`:''}<div class="pf-tags"><button type="button" class="pf-id" data-pf="copy" data-id="${esc(pid(r.id))}">${esc(pid(r.id))} ⧉</button>${Social.badgeFor(r)}${gold?'<span class="chip role-dev">👑 YS • المؤسس</span>':isMod?'<span class="chip role-mod">🛡️ مشرف</span>':''}<span class="chip">${esc(r.title||t('student'))}</span></div>${r.bio?`<p class="pf-bio">${esc(r.bio)}</p>`:''}${medals(r,gold)}<div class="pf-stats">${st.map(([v,l])=>`<div><b>${esc(v)}</b><span>${esc(l)}</span></div>`).join('')}</div></div></div>`;
       }
       function renderProfile(){
         const p=state.profile, sw=(arr,k,cur)=>arr.map((c,i)=>`<button type="button" class="pf-sw ${cur===i?'on':''}" data-pf="${k}" data-i="${i}" style="background:${Array.isArray(c)?`linear-gradient(135deg,${c[0]},${c[1]})`:c}" aria-label="${k} ${i+1}"></button>`).join('');
-        return `<div class="pf-grid"><div id="pfPreview">${pfCard(myRow())}</div><div class="card pf-edit" id="pfForm"><h3 class="title">${esc(t('editProfileT'))}</h3><div class="row"><button type="button" class="btn" data-pf="photo">📷 ${state.settings.lang==='ar'?'صورة الملف':'Photo'}</button><button type="button" class="btn" data-pf="rmphoto">✕</button><input type="file" id="pfFile" accept="image/*" hidden></div><label>${esc(t('nameT'))}<input id="pfName" maxlength="40" value="${esc(p.name||'')}"></label><label>@username<input id="pfHandle" maxlength="20" dir="ltr" value="${esc(p.handle||'')}" placeholder="username"></label><label>${esc(t('bioT'))}<textarea id="pfBio" maxlength="140" rows="3">${esc(p.bio||'')}</textarea><small class="muted" id="pfCnt">${(p.bio||'').length}/140</small></label><div><div class="muted small">${esc(t('bannerT'))}</div><div class="pf-sws" id="swBanner">${sw(BANNERS,'banner',p.banner|0)}</div></div><div><div class="muted small">${esc(t('colorT'))}</div><div class="pf-sws" id="swColor">${sw(PF_COLORS,'color',PF_COLORS.indexOf(p.avatarColor))}</div></div><button class="btn primary" data-pf="save">${esc(t('saveT'))}</button></div>${missionsHtml()}</div>`;
+        return `<div class="pf-grid"><div id="pfPreview">${pfCard(myRow())}</div><div class="card pf-edit" id="pfForm"><h3 class="title">${esc(t('editProfileT'))}</h3><div class="row"><button type="button" class="btn" data-pf="photo">📷 ${state.settings.lang==='ar'?'صورة الملف':'Photo'}</button><button type="button" class="btn" data-pf="rmphoto">✕</button><input type="file" id="pfFile" accept="image/*" hidden></div><label>حالة الاتصال<select id="pfPresence" class="input"><option value="online" ${(!p.presence||p.presence==='online')?'selected':''}>🟢 متصل</option><option value="busy" ${p.presence==='busy'?'selected':''}>🔴 مشغول</option><option value="focus" ${p.presence==='focus'?'selected':''}>🔴 وضع التركيز</option><option value="offline" ${p.presence==='offline'?'selected':''}>⚫ غير متصل</option><option value="hidden" ${p.hidePresence?'selected':''}>⚫ إخفاء الحالة</option></select></label><label>${esc(t('nameT'))}<input id="pfName" maxlength="40" value="${esc(p.name||'')}"></label><label>@username<input id="pfHandle" maxlength="20" dir="ltr" value="${esc(p.handle||'')}" placeholder="username"></label><label>${esc(t('bioT'))}<textarea id="pfBio" maxlength="140" rows="3">${esc(p.bio||'')}</textarea><small class="muted" id="pfCnt">${(p.bio||'').length}/140</small></label><div><div class="muted small">${esc(t('bannerT'))}</div><div class="pf-sws" id="swBanner">${sw(BANNERS,'banner',p.banner|0)}</div></div><div><div class="muted small">${esc(t('colorT'))}</div><div class="pf-sws" id="swColor">${sw(PF_COLORS,'color',PF_COLORS.indexOf(p.avatarColor))}</div></div><button class="btn primary" data-pf="save">${esc(t('saveT'))}</button></div>${missionsHtml()}</div>`;
       }
-      function pfDraft(){ const g=n=>document.getElementById(n); if(!g('pfName'))return; const p=state.profile; p.name=g('pfName').value.slice(0,40); p.handle=g('pfHandle').value.toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,20); p.bio=g('pfBio').value.slice(0,140); g('pfCnt').textContent=p.bio.length+'/140'; g('pfPreview').innerHTML=pfCard(myRow()); }
+      function pfDraft(){ const g=n=>document.getElementById(n); if(!g('pfName'))return; const p=state.profile; p.name=g('pfName').value.slice(0,40); p.handle=g('pfHandle').value.toLowerCase().replace(/[^a-z0-9_]/g,'').slice(0,20); p.bio=g('pfBio').value.slice(0,140); if(g('pfPresence')){p.presence=g('pfPresence').value;p.hidePresence=p.presence==='hidden';} g('pfCnt').textContent=p.bio.length+'/140'; g('pfPreview').innerHTML=pfCard(myRow()); }
       async function openPub(id){
         let r=(state.leaderboard.cache||[]).find(x=>x.id===id);
         if(!r&&fb.ready){ try{ const s=await fb.db.collection('publicProfiles').doc(id).get(); if(s.exists) r={id,...s.data()}; }catch{} }
@@ -1007,6 +955,7 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
         openModal({title:t('profile'),body:pfCard(r)+(state.developer.unlocked?DevCenter.actions(id,r):'')+(!mine&&Social.ok()?`<button class="btn primary" style="width:100%;margin-top:12px" data-pf="addfriend" data-id="${esc(id)}">${esc(t('addFriendT'))}</button>`:'')});
       }
       document.addEventListener('input',e=>{ if(e.target.closest&&e.target.closest('#pfForm')) pfDraft(); });
+      document.addEventListener('change',e=>{ if(e.target && e.target.id==='pfPresence') pfDraft(); });
       document.addEventListener('click',async e=>{
         const b=e.target.closest('[data-pf]');
         if(b){ const a=b.dataset.pf, p=state.profile;
@@ -1030,7 +979,7 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
       function medals(r,gold){ const ids=gold?BADGE_DEFS.map(b=>b.id):(r.badges||[]); return ids.length?`<div class="pf-medals">${ids.slice(0,18).map(id=>{ const b=BADGE_DEFS.find(x=>x.id===id); return b?`<span class="pf-medal${gold?' gold':''}" title="${esc(badgeName(id))}">${icon(b.icon||'star',16)}</span>`:''; }).join('')}</div>`:''; }
       function missionsHtml(){ const L=(a,e)=>state.settings.lang==='ar'?a:e; const rows=BADGE_DEFS.filter(b=>MISS[b.id]).map(b=>{ const [goal,fn]=MISS[b.id], v=Math.min(goal,fn()), done=!!state.game.badges[b.id]; const un=[...FRAME_DEFS.filter(f=>f.badge===b.id).map(f=>'🖼 '+frameName(f.id)),...TITLE_DEFS.filter(f=>f.badge===b.id).map(f=>'🏷 '+titleName(f.id))].join(' · '); return `<div class="list-item ${done?'done':''}"><div class="badge-icon">${icon(b.icon||'star',20)}</div><div class="list-main"><div class="list-title">${esc(badgeName(b.id))} ${done?'✅':''}</div><div class="progress"><span style="width:${Math.round(v/goal*100)}%"></span></div><div class="meta"><span>${v}/${goal}</span><span>+${b.xp} XP</span>${un?`<span>${esc(un)}</span>`:''}</div></div></div>`; }); return `<div class="card pf-miss"><h3 class="title">🎯 ${L('مهام الأوسمة والجوائز','Badge missions')}</h3><div class="list">${rows.join('')}</div></div>`; }
       function pfResize(file){ return new Promise((res,rej)=>{ const img=new Image(), u=URL.createObjectURL(file); img.onload=()=>{ const s=160, c=document.createElement('canvas'); c.width=c.height=s; const m=Math.min(img.width,img.height); c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s); URL.revokeObjectURL(u); res(c.toDataURL('image/jpeg',.82)); }; img.onerror=rej; img.src=u; }); }
-      document.addEventListener('change',async e=>{ if(e.target.id!=='pfFile'||!e.target.files[0]) return; const file=e.target.files[0]; try{ if(!file.type.startsWith('image/')) throw new Error('not-image'); state.profile.photo=await pfResize(file); pfDraft(); }catch{ toast(state.settings.lang==='ar'?'تعذر تحميل الصورة، جرّب صورة أخرى':'Could not load image; try another photo','error'); } finally{ e.target.value=''; } });
+      document.addEventListener('change',async e=>{ if(e.target.id!=='pfFile'||!e.target.files[0]) return; try{ state.profile.photo=await pfResize(e.target.files[0]); pfDraft(); }catch{ toast('Image error','error'); } });
       document.addEventListener('click',e=>{ const b=e.target.closest('[data-pf]'); if(!b) return; if(b.dataset.pf==='photo'){ const f=document.getElementById('pfFile'); if(f) f.click(); } else if(b.dataset.pf==='rmphoto'){ state.profile.photo=''; pfDraft(); } });
 
       /* ===== Protection: content guard + public chat + bans ===== */
@@ -1054,7 +1003,7 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
           return this.msgs.map(m=>{ const mine=m.uid===me, st=(Social.staff||{})[m.uid], tm=m.at&&m.at.toDate?m.at.toDate().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}):'';
             const act=mod&&!mine&&!st?`<span class="pc-act"><button type="button" class="btn sm" data-pc="del" data-id="${esc(m.id)}">🗑</button><button type="button" class="btn sm" data-pc="ban" data-uid="${esc(m.uid)}" data-name="${esc(m.name||'')}" data-h="24">⛔ 24h</button>${state.developer.unlocked?`<button type="button" class="btn sm" data-pc="ban" data-uid="${esc(m.uid)}" data-name="${esc(m.name||'')}" data-h="876000">⛔ ∞</button>`:''}</span>`:(mine?`<span class="pc-act"><button type="button" class="btn sm" data-pc="del" data-id="${esc(m.id)}">🗑</button></span>`:'');
             return `<div class="pc-m ${mine?'me':''}"><span class="avatar" style="width:32px;height:32px;background:${st&&st.role==='developer'?'linear-gradient(135deg,#fde68a,#b45309)':'var(--accent)'}">${esc((m.name||'م').slice(0,1).toUpperCase())}</span><div class="pc-b"><div class="pc-n" data-pid="${esc(m.uid)}">${esc(m.name||'—')} ${roleChip(m.uid)}</div>${esc(m.text)}<small class="pc-t">${esc(tm)}</small>${act}</div></div>`; }).join('')||emptyHtml(t('noData')); },
-        formHtml(){ if(this.banned()) return `<div class="pc-ban">⛔ ${this.L('أنت محظور من الشات حتى','You are banned until')} ${esc(this.ban.until.toDate().toLocaleString())}</div>`; return `<form id="pcSend" class="row"><input class="input" id="pcIn" maxlength="300" autocomplete="off" style="flex:1;font-size:16px" placeholder="${esc(this.L('اكتب رسالة محترمة…','Write something kind…'))}"><button class="btn primary">${esc(t('send'))}</button></form>`; },
+        formHtml(){ if(this.banned()) return `<div class="pc-ban">⛔ ${this.L('أنت محظور من الشات حتى','You are banned until')} ${esc(this.ban.until.toDate().toLocaleString())}</div>`; return `<form id="pcSend" class="row"><input class="input" id="pcIn" maxlength="300" autocomplete="off" style="flex:1;font-size:16px" placeholder="${esc(this.L('اكتب رسالة محترمة…','Write something kind…'))}"><button type="submit" class="btn primary chat-send-btn"><span class="chat-send-label">${esc(t('send'))}</span> <span aria-hidden="true">➤</span></button></form>`; },
         paint(){ const b=document.getElementById('pcMsgs'); if(!b) return; b.innerHTML=this.msgsHtml(); b.scrollTop=b.scrollHeight; },
         paintForm(){ const f=document.getElementById('pcForm'); if(f) f.innerHTML=this.formHtml(); },
         async tsBan(uid,hours,by,reason,count){ await fb.db.collection('bans').doc(uid).set({reason,by,count,at:Social.ts(),until:firebase.firestore.Timestamp.fromMillis(Date.now()+Math.min(hours,876000)*36e5)}); },
@@ -1454,7 +1403,7 @@ button,input,select,textarea{font:inherit;max-width:100%;touch-action:manipulati
           try{ await fb.db.collection('friendships').doc(id).update({ ['close.' + this.me()]: !(f.close && f.close[this.me()]), updatedAt:iso() }); }catch(e){ toast(t('requiresFirebase')+' ['+((e&&e.code)||'error')+']','error'); } },
         openChat(path, title){
           const col = fb.db.collection(path), me = this.me();
-          const m = openModal({ title, body:`<div id="chatMsgs" style="height:min(55vh,420px);overflow:auto"></div><form id="chatForm" class="row" style="margin-top:10px"><input class="input" id="chatIn" maxlength="1000" autocomplete="off" style="flex:1;font-size:16px" placeholder="${esc(t('typeMsgT'))}"><button class="btn primary">${esc(t('send'))}</button></form><div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">${['👍','😂','❤️','🔥','👏','🎉'].map(e => `<button type="button" class="btn sm" data-emo="${e}">${e}</button>`).join('')}</div>` });
+          const m = openModal({ title, body:`<div id="chatMsgs" style="height:min(55vh,420px);overflow:auto"></div><form id="chatForm" class="row" style="margin-top:10px"><input class="input" id="chatIn" maxlength="1000" autocomplete="off" style="flex:1;font-size:16px" placeholder="${esc(t('typeMsgT'))}"><button type="submit" class="btn primary chat-send-btn"><span class="chat-send-label">${esc(t('send'))}</span> <span aria-hidden="true">➤</span></button></form><div class="row" style="gap:6px;margin-top:8px;flex-wrap:wrap">${['👍','😂','❤️','🔥','👏','🎉'].map(e => `<button type="button" class="btn sm" data-emo="${e}">${e}</button>`).join('')}</div>` });
           const box = m.el.querySelector('#chatMsgs'), input = m.el.querySelector('#chatIn');
           const unsub = col.orderBy('at','desc').limit(60).onSnapshot(s => {
             if(!document.body.contains(m.el)){ unsub(); return; }
